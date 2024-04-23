@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_USERNAME = "yasser744"
-        APP_NAME = "gitops-demo-app"
+        APP_NAME = "devops-demo-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
         REGISTRY_CREDS = 'yasser_dockerhub'
@@ -15,11 +15,11 @@ pipeline {
                 }
             }
         }
-        stage('Checkout SCM'){
+        stage('Checkout SCM on github'){
             steps {
                 git credentialsId: 'github', 
                 url: 'https://github.com/YasserAhmedMoh/gitops-demo.git',
-                branch: 'master'
+                branch: 'main'
             }
         }
         stage('Build Docker Image'){
@@ -29,7 +29,8 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image'){
+        //    PUSH DOCKER IMAGE TO DOCKERHUB
+        stage('Push Docker Image To DockerHub'){
             steps {
                 script{
                     docker.withRegistry('', REGISTRY_CREDS ){
@@ -39,6 +40,12 @@ pipeline {
                 }
             }
         } 
+        stage('Push Docker Image To JCR') {
+            steps {
+                sh "docker login -u cadmin -p P@ssw0rd http://192.168.215.187:8082/artifactory/docker_jfrog_repo/"
+                sh "docker build -f Dockerfile . -t  192.168.215.187:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker push 192.168.215.187:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+            }
         stage('Delete Docker Images'){
             steps {
                 sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
@@ -60,11 +67,8 @@ pipeline {
                     git config --global user.email "ya81301@gmail.com"
                     git add deployment.yml
                     git commit -m 'Updated the deployment file' """
-                    //withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    //    sh "git push https://github.com/YasserAhmedMoh/gitops-demo.git master"
-                   // }
                     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                        sh "git push https://${user}:${pass}@github.com/YasserAhmedMoh/gitops-demo.git master"
+                        sh "git push https://${user}:${pass}@github.com/YasserAhmedMoh/gitops-demo.git main"
                     }
                 }
             }
@@ -73,18 +77,3 @@ pipeline {
 }
 
 
-// stage('Build Docker Image'){
-//             steps {
-//                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-//                 sh "docker build -t ${IMAGE_NAME}:latest ."
-//             }
-//         }
-//         stage('Push Docker Image'){
-//             steps {
-//                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-//                     sh "docker login -u $user --password $pass"
-//                     sh "docker push ${IMAGE_NAME}:${IMAGE_TAG} ."
-//                     sh "docker push ${IMAGE_NAME}:latest ."
-//                 }
-//             }
-//         }
