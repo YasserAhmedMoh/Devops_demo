@@ -46,6 +46,7 @@ pipeline {
                 sh "docker build -f Dockerfile . -t  192.168.215.187:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
                 sh "docker push 192.168.215.187:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
+        }
         stage('Delete Docker Images'){
             steps {
                 sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
