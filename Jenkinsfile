@@ -18,7 +18,7 @@ pipeline {
         stage('Checkout SCM on github'){
             steps {
                 git credentialsId: 'github', 
-                url: 'https://github.com/YasserAhmedMoh/gitops-demo.git',
+                url: 'https://github.com/YasserAhmedMoh/Devops_demo.git',
                 branch: 'test'
             }
         }
@@ -68,7 +68,7 @@ pipeline {
                     git add deployment.yml
                     git commit -m 'Updated the deployment file' """
                     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                        sh "git push https://${user}:${pass}@github.com/YasserAhmedMoh/gitops-demo.git main"
+                        sh "git push https://${user}:${pass}@github.com/YasserAhmedMoh/Devops_demo.git main"
                     }
                 }
             }
