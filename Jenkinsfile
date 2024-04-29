@@ -15,13 +15,6 @@ pipeline {
                 }
             }
         }
-        stage('Checkout SCM on github'){
-            steps {
-                git credentialsId: 'github', 
-                url: 'https://github.com/YasserAhmedMoh/Devops_demo.git',
-                branch: 'test'
-            }
-        }
         stage('Build Docker Image'){
             steps {
                 script{
@@ -29,22 +22,12 @@ pipeline {
                 }
             }
         }
-        //    PUSH DOCKER IMAGE TO DOCKERHUB
-        stage('Push Docker Image To DockerHub'){
-            steps {
-                script{
-                    docker.withRegistry('', REGISTRY_CREDS ){
-                        docker_image.push("${BUILD_NUMBER}")
-                        docker_image.push('latest')
-                    }
-                }
-            }
-        } 
+        
         stage('Push Docker Image To JCR') {
             steps {
-                sh "docker login -u cadmin -p P@ssw0rd http://192.168.215.187:8082/artifactory/docker_jfrog_repo/"
-                sh "docker build -f Dockerfile . -t  192.168.215.187:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
-                sh "docker push 192.168.215.187:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8082/artifactory/docker_jfrog_repo/"
+                sh "docker build -f Dockerfile . -t  192.168.96.132:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker push 192.168.96.132:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
         stage('Delete Docker Images'){
