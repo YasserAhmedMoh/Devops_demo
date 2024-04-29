@@ -25,9 +25,9 @@ pipeline {
         
         stage('Push Docker Image To JCR') {
             steps {
-                sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8082/artifactory/docker_jfrog_repo/"
-                sh "docker build -f Dockerfile . -t  192.168.96.132:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
-                sh "docker push 192.168.96.132:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker login -u cadmin -p P@ssw0rd http://192.168.5.15:8082/artifactory/docker_jfrog_repo/"
+                sh "docker build -f Dockerfile . -t  192.168.5.15:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker push 192.168.5.15:8082/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
         stage('Delete Docker Images'){
