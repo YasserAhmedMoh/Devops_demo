@@ -3,7 +3,8 @@ def COLOR_MAP = [
     'FAILURE': 'danger',
 ]
 pipeline {
-    agent any
+   // agent any
+    agent {label 'jenkins_jcr_env'}
     environment {
         DOCKERHUB_USERNAME = "yasser"
         APP_NAME = "devops-demo-app"
