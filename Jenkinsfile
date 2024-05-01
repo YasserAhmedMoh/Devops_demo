@@ -38,7 +38,7 @@ pipeline {
                 script{
                     docker.withRegistry('', REGISTRY_CREDS ){
                         
-                        sh "docker push ${BUILD_NUMBER}"
+                        sh "docker push ${IMAGE_NAME}"
                         sh "docker push latest"
                     }
                 }
