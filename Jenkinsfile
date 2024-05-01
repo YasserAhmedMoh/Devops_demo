@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps {
-                sh 'docker build -f Dockerfile -t ${IMAGE_NAME} .'
+                sh 'docker build -f Dockerfile -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
             }
         }
          //    PUSH DOCKER IMAGE TO DOCKERHUB
