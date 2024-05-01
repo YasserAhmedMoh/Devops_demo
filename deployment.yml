@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-app-container
-        image: yasser744/devops-demo-app:23
+        image: yasser744/devops-demo-app:24
         ports:
         - containerPort: 5000
 ---
