@@ -27,6 +27,11 @@ pipeline {
                 branch: 'test'
             }
         }
+        stage('Build Docker Image'){
+            steps {
+                sh 'docker build -f Dockerfile -t ${IMAGE_NAME} .'
+            }
+        }
          //    PUSH DOCKER IMAGE TO DOCKERHUB
         stage('Push Docker Image To DockerHub'){
             steps {
