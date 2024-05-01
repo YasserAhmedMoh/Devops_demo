@@ -62,7 +62,8 @@ pipeline {
         stage('Argocd login'){
              agent {label 'argocd_env'}
             steps {
-                sh "argocd login --username admin --password P@ssw0rd https://localhost:8090/"
+                sh "argocd login --username admin --password P@ssw0rd localhost:8090"
+                sh "y"
 
             }
         }
