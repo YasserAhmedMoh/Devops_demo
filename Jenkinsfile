@@ -36,12 +36,7 @@ pipeline {
                 sh "docker push 192.168.1.3:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
-        stage('Delete Docker Images'){
-            steps {
-                sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
-                sh "docker rmi ${IMAGE_NAME}:latest"
-            }
-        }
+        
         stage('Updating Kubernetes deployment file'){
             steps {
                 sh "cat deployment.yml"
