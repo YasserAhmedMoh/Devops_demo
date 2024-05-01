@@ -39,7 +39,7 @@ pipeline {
                     docker.withRegistry('', REGISTRY_CREDS ){
                         
                         sh "docker push ${IMAGE_NAME}"
-                        sh "docker push latest"
+                        
                     }
                 }
             }
