@@ -27,7 +27,17 @@ pipeline {
                 branch: 'test'
             }
         }
-         
+         //    PUSH DOCKER IMAGE TO DOCKERHUB
+        stage('Push Docker Image To DockerHub'){
+            steps {
+                script{
+                    docker.withRegistry('', REGISTRY_CREDS ){
+                        docker_image.push("${BUILD_NUMBER}")
+                        docker_image.push('latest')
+                    }
+                }
+            }
+        } 
         
         
         stage('Push Docker Image To JCR') {
