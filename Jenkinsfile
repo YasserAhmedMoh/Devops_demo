@@ -78,7 +78,7 @@ pipeline {
         stage('Argocd login'){
              agent {label 'argocd_env'}
             steps {
-                sh "git clone -b test https://github.com/YasserAhmedMoh/Devops_demo.git"
+               // sh "git clone -b test https://github.com/YasserAhmedMoh/Devops_demo.git"
                 sh "argocd login --username admin --insecure --password P@ssw0rd localhost:8090"
                 sh "kubectl apply -f deployment.yml"
                 
