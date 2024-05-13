@@ -1,7 +1,7 @@
-def COLOR_MAP = [
-    'SUCCESS': 'good', 
-    'FAILURE': 'danger',
-]
+// def COLOR_MAP = [
+//     'SUCCESS': 'good', 
+//     'FAILURE': 'danger',
+// ]
 pipeline {
    // agent any
     agent {label 'jenkins_jcr_env'}
@@ -48,9 +48,9 @@ pipeline {
         
         stage('Push Docker Image To JCR') {
             steps {
-                sh "docker login -u cadmin -p P@ssw0rd http://192.168.1.3:8081/artifactory/docker_jfrog_repo/"
-                sh "docker build -f Dockerfile . -t  192.168.1.3:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
-                sh "docker push 192.168.1.3:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8081/artifactory/docker_jfrog_repo/"
+                sh "docker build -f Dockerfile . -t  192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker push 192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
         
@@ -86,13 +86,13 @@ pipeline {
         }
     }
 
-post {
-        always {
-            echo 'Slack Notifications.'
-            slackSend channel: '#elprof',
-                color: COLOR_MAP[currentBuild.currentResult],
-                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} with the name ${env.IMAGE_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-        }
+// post {
+//         always {
+//             echo 'Slack Notifications.'
+//             slackSend channel: '#elprof',
+//                 color: COLOR_MAP[currentBuild.currentResult],
+//                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} with the name ${env.IMAGE_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+//         }
     }
 }
 
