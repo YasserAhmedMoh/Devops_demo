@@ -1,9 +1,8 @@
-// def COLOR_MAP = [
-//     'SUCCESS': 'good', 
-//     'FAILURE': 'danger',
-// ]
+def COLOR_MAP = [
+    'SUCCESS': 'good', 
+    'FAILURE': 'danger',
+]
 pipeline {
-   // agent any
     agent {label 'jenkins_jcr_env'}
     environment {
         DOCKERHUB_USERNAME = "yasser744"
@@ -13,39 +12,6 @@ pipeline {
         REGISTRY_CREDS = 'yasser_dockerhub'
         }
     stages {
-        // stage('Cleanup Workspace'){
-        //     steps {
-        //         script {
-        //             cleanWs()
-        //         }
-        //     }
-        // }
-        // stage('Checkout SCM on github'){
-        //     steps {
-        //         git credentialsId: 'github', 
-        //         url: 'https://github.com/YasserAhmedMoh/Devops_demo.git',
-        //         branch: 'test'
-        //     }
-        // }
-        // stage('Build Docker Image'){
-        //     steps {
-        //         sh 'docker build -f Dockerfile -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
-        //     }
-        // }
-         //    PUSH DOCKER IMAGE TO DOCKERHUB
-        // stage('Push Docker Image To DockerHub'){
-        //     steps {
-        //         script{
-        //             docker.withRegistry('', REGISTRY_CREDS ){
-                        
-        //                 sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
-                        
-        //             }
-        //         }
-        //     }
-        // } 
-        
-        
         stage('Push Docker Image To JCR') {
             steps {
                 sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8081/artifactory/docker_jfrog_repo/"
@@ -78,7 +44,6 @@ pipeline {
         stage('Argocd login'){
              agent {label 'argocd_env'}
             steps {
-               // sh "git clone -b test https://github.com/YasserAhmedMoh/Devops_demo.git"
                 sh "argocd login --username admin --insecure --password P@ssw0rd localhost:8090"
                 sh "kubectl apply -f deployment.yml"
                 
@@ -87,14 +52,14 @@ pipeline {
     }
 }
 
-// post {
-//         always {
-//             echo 'Slack Notifications.'
-//             slackSend channel: '#elprof',
-//                 color: COLOR_MAP[currentBuild.currentResult],
-//                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} with the name ${env.IMAGE_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
-//         }
-//     }
-// }
+post {
+        always {
+            echo 'Slack Notifications.'
+            slackSend channel: '#elprof',
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} with the name ${env.IMAGE_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+        }
+    }
+}
 
 
