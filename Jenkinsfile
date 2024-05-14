@@ -50,7 +50,7 @@ pipeline {
             }
         }
     }
-}
+
 
 post {
         always {
@@ -60,6 +60,8 @@ post {
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} with the name ${env.IMAGE_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
+}
+
 }
 
 
