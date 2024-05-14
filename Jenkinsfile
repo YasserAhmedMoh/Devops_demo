@@ -13,37 +13,37 @@ pipeline {
         REGISTRY_CREDS = 'yasser_dockerhub'
         }
     stages {
-        stage('Cleanup Workspace'){
-            steps {
-                script {
-                    cleanWs()
-                }
-            }
-        }
-        stage('Checkout SCM on github'){
-            steps {
-                git credentialsId: 'github', 
-                url: 'https://github.com/YasserAhmedMoh/Devops_demo.git',
-                branch: 'test'
-            }
-        }
-        stage('Build Docker Image'){
-            steps {
-                sh 'docker build -f Dockerfile -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
-            }
-        }
+        // stage('Cleanup Workspace'){
+        //     steps {
+        //         script {
+        //             cleanWs()
+        //         }
+        //     }
+        // }
+        // stage('Checkout SCM on github'){
+        //     steps {
+        //         git credentialsId: 'github', 
+        //         url: 'https://github.com/YasserAhmedMoh/Devops_demo.git',
+        //         branch: 'test'
+        //     }
+        // }
+        // stage('Build Docker Image'){
+        //     steps {
+        //         sh 'docker build -f Dockerfile -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+        //     }
+        // }
          //    PUSH DOCKER IMAGE TO DOCKERHUB
-        stage('Push Docker Image To DockerHub'){
-            steps {
-                script{
-                    docker.withRegistry('', REGISTRY_CREDS ){
+        // stage('Push Docker Image To DockerHub'){
+        //     steps {
+        //         script{
+        //             docker.withRegistry('', REGISTRY_CREDS ){
                         
-                        sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
+        //                 sh "docker push ${IMAGE_NAME}:${BUILD_NUMBER}"
                         
-                    }
-                }
-            }
-        } 
+        //             }
+        //         }
+        //     }
+        // } 
         
         
         stage('Push Docker Image To JCR') {
