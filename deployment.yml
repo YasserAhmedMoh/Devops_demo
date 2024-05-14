@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: flask-app-container
-        #image: yasser744/devops-demo-app/63/manifest.json
-        image: http://192.168.96.132:8081/artifactory/docker_jfrog_repo/yasser744/devops-demo-app/63/manifest.json
+        #image: yasser744/devops-demo-app/64
+        image: http://192.168.96.132:8081/artifactory/docker_jfrog_repo/yasser744/devops-demo-app/64
         ports:
         - containerPort: 5000
 ---
