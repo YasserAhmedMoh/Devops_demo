@@ -46,13 +46,13 @@ pipeline {
         } 
         
         
-        // stage('Push Docker Image To JCR') {
-        //     steps {
-        //         sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8081/artifactory/docker_jfrog_repo/"
-        //         sh "docker build -f Dockerfile . -t  192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
-        //         sh "docker push 192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
-        //     }
-        // }
+        stage('Push Docker Image To JCR') {
+            steps {
+                sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8081/artifactory/docker_jfrog_repo/"
+                sh "docker build -f Dockerfile . -t  192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+                sh "docker push 192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
+            }
+        }
         
         stage('Updating Kubernetes deployment file'){
             steps {
