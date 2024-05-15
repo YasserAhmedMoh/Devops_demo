@@ -28,7 +28,7 @@ spec:
         image: 192.168.96.132:8081/docker_jfrog_repo/yasser744/devops-demo-app:87
         ports:
         - containerPort: 5000
-        imagePullPolicy: Never
+        imagePullPolicy: Always
       imagePullSecrets:
       - name: registry-credentials 
         
