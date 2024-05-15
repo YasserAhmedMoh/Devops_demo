@@ -30,6 +30,7 @@ spec:
         - containerPort: 5000
       imagePullSecrets:
       - name: registry-credentials
+      imagePullPolicy: Never
 ---
 apiVersion: v1
 kind: Service
