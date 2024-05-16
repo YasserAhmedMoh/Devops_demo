@@ -6,6 +6,17 @@ type: kubernetes.io/basic-auth
 data:
   username: 4oCYY2FkbWlu4oCZ
   password: 4oCYUEBzc3cwcmTigJk=
+  stringData:
+  .dockerconfigjson: |
+    {
+      "auths": {
+        "192.168.96.132:8081": {
+          "username": "cadmin",
+          "password": "P@ssw0rd",
+          "insecureSkipTLSVerify": true
+        }
+      }
+    }
 
 ---
 apiVersion: apps/v1
