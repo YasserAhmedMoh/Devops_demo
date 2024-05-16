@@ -6,7 +6,7 @@ type: kubernetes.io/basic-auth
 data:
   username: 4oCYY2FkbWlu4oCZ
   password: 4oCYUEBzc3cwcmTigJk=
-  stringData:
+stringData:
   .dockerconfigjson: |
     {
       "auths": {
