@@ -35,8 +35,8 @@ spec:
     spec:
       containers:
       - name: flask-app-container
-        #image: yasser744/devops-demo-app:94
-        image: 192.168.96.132:8081/docker_jfrog_repo/yasser744/devops-demo-app:94
+        #image: yasser744/devops-demo-app:95
+        image: 192.168.96.132:8081/docker_jfrog_repo/yasser744/devops-demo-app:95
         ports:
         - containerPort: 5000
         imagePullPolicy: Always
