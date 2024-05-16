@@ -48,7 +48,7 @@ pipeline {
                 sh "argocd login --username admin --insecure --password P@ssw0rd localhost:8090"
                 sh "docker login -u cadmin -p P@ssw0rd http://192.168.96.132:8081/artifactory/docker_jfrog_repo/"
                 sh "kubectl apply -f deployment.yml"
-                sh "docker pull 192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${IMAGE_TAG}"
+                //sh "docker pull 192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${IMAGE_TAG}"
                 
             }
         }
