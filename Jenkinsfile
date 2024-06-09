@@ -19,6 +19,7 @@ pipeline {
                 }
             }
         }
+        }
     stages {
         stage('Push Docker Image To JCR') {
             steps {
