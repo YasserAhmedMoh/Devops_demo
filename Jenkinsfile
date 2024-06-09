@@ -30,10 +30,10 @@ pipeline {
         //     }
         // }
 
-         stage('Build Docker Image'){
+         stage('Build Docker Image') {
             steps {
-                script{
-                    docker_image = docker.build "${IMAGE_NAME}"
+                script {
+                    docker_image = docker.build("${IMAGE_NAME}", "-f path/to/Dockerfile .")
                 }
             }
         }
