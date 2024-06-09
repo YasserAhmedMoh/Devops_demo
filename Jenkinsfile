@@ -30,6 +30,14 @@ pipeline {
         //     }
         // }
 
+        stage('Checkout SCM on github'){
+            steps {
+                git credentialsId: 'github', 
+                url: 'https://github.com/YasserAhmedMoh/Devops_demo.git',
+                branch: 'test'
+            }
+        }
+
          stage('Build Docker Image') {
             steps {
                 script {
