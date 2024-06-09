@@ -28,6 +28,7 @@ pipeline {
                 sh "docker push 192.168.96.132:8081/docker_jfrog_repo/${IMAGE_NAME}:${BUILD_NUMBER}"
             }
         }
+    }
         stage('Push Docker Image To DockerHub'){
             steps {
                 script{
