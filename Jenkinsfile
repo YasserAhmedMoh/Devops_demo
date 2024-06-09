@@ -30,11 +30,16 @@ pipeline {
         //     }
         // }
 
-        stage('Push Docker Image To DockerHub') {
+         stage('Build Docker Image'){
             steps {
-                script {
+                script{
                     docker_image = docker.build "${IMAGE_NAME}"
                 }
+            }
+        }
+
+        stage('Push Docker Image To DockerHub') {
+            steps {
                 script {
                     docker.withRegistry('', REGISTRY_CREDS) {
                         docker_image.push("${BUILD_NUMBER}")
