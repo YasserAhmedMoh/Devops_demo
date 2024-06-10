@@ -94,7 +94,7 @@ pipeline {
             agent { label 'argocd_env' }
             steps {
                 sh "argocd login --username admin --insecure --password P@ssw0rd localhost:8090"
-                sh "kubectl apply -f deployment.yml"
+                sh "kubectl apply -f application.yml"
             }
         }
     }
