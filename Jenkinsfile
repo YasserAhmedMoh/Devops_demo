@@ -38,6 +38,20 @@ pipeline {
             }
         }
 
+        stage('build && SonarQube analysis') {
+            environment {
+             scannerHome = tool 'sonar-scaner'
+          }
+            steps {
+                withSonarQubeEnv('sonar') {
+                       sh '''${scannerHome}/bin/sonar-scaner -Dsonar.projectKey=sonar_python \
+                      -Dsonar.projectKey=sonar_python \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=http://192.168.96.132:9000 \
+                      -Dsonar.login=sqp_71da3beef8dd97399a841387d84d222c5af22999
+                }
+            }
+
          stage('Build Docker Image'){
             steps {
                 script{
@@ -45,6 +59,8 @@ pipeline {
                 }
             }
         }
+
+        
 
         stage('Push Docker Image To DockerHub') {
             steps {
